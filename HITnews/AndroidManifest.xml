@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.hitnews"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="21" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Begin"
+            android:label="@string/begin_label">
+        </activity>
+        <activity
+            android:name=".web_choose"
+            android:label="@string/web_choose_title" >
+        </activity>
+        <activity 
+            android:name=".key_choose"
+            android:label="@string/key_choose_label"
+            ></activity>
+        <activity 
+            android:name=".login"
+            ></activity>
+        <activity 
+            android:name=".register"
+            ></activity>
+        <activity
+            android:name=".feedback"
+            ></activity>
+    </application>
+
+</manifest>
