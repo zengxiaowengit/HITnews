@@ -1664,7 +1664,6 @@ containing a value of this type.
         public static final int send_n=0x7f02004f;
     }
     public static final class id {
-        public static final int about_content=0x7f090042;
         public static final int action_bar=0x7f090033;
         public static final int action_bar_activity_content=0x7f090003;
         public static final int action_bar_container=0x7f090032;
@@ -1725,6 +1724,7 @@ containing a value of this type.
         public static final int main_head_send_button=0x7f090046;
         public static final int middle=0x7f09001d;
         public static final int never=0x7f090017;
+        public static final int news_show=0x7f090042;
         public static final int none=0x7f09000f;
         public static final int normal=0x7f09000b;
         public static final int progressBar=0x7f09004d;
