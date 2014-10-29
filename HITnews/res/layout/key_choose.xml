@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+	<CheckBoxPreference
+	    android:key="key_kaoyan"
+	    android:title="@string/key_kaoyan_title"
+	    android:summary="@string/key_kaoyan_summary"
+	    android:defaultValue="true" />
+	<CheckBoxPreference
+	    android:key="key_chuguo"
+	    android:title="@string/key_chuguo_title"
+	    android:summary="@string/key_chuguo_summary"
+	    android:defaultValue="true" />
+	<CheckBoxPreference
+	    android:key="key_jiuye"
+	    android:title="@string/key_jiuye_title"
+	    android:summary="@string/key_jiuye_summary"
+	    android:defaultValue="true" />
+	</PreferenceScreen>
+
+   
