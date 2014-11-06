@@ -361,12 +361,8 @@ int drawable login_edit_normal 0x7f02004b
 int drawable login_edit_pressed 0x7f02004c
 int drawable login_editbox 0x7f02004d
 int drawable login_line 0x7f02004e
-<<<<<<< HEAD
 int drawable main_background 0x7f02004f
 int drawable send_n 0x7f020050
-=======
-int drawable send_n 0x7f02004f
->>>>>>> 8ed586faf305acd3add49c986ac93451b7d6f3c3
 int id action_bar 0x7f090033
 int id action_bar_activity_content 0x7f090003
 int id action_bar_container 0x7f090032

@@ -1661,12 +1661,8 @@ containing a value of this type.
         public static final int login_edit_pressed=0x7f02004c;
         public static final int login_editbox=0x7f02004d;
         public static final int login_line=0x7f02004e;
-<<<<<<< HEAD
         public static final int main_background=0x7f02004f;
         public static final int send_n=0x7f020050;
-=======
-        public static final int send_n=0x7f02004f;
->>>>>>> 8ed586faf305acd3add49c986ac93451b7d6f3c3
     }
     public static final class id {
         public static final int action_bar=0x7f090033;
