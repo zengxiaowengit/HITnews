@@ -1,9 +1,14 @@
 package com.example.hitnews.ui;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import com.example.hitnews.R;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
@@ -15,6 +20,11 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.os.StrictMode;
 import com.example.hitnews.pagedeal.*;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 public class MainActivity extends ActionBarActivity implements OnClickListener {
 	
 	@Override
@@ -25,6 +35,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 		View beginButton = this.findViewById(R.id.begin_button);
 		
 		beginButton.setOnClickListener(this);
+	
 		//news =(TextView) begin. findViewById(R.id.news_show);
 		
 	//	View userButton = this.findViewById(R.id.user_button);
