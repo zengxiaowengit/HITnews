@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,30 +17,22 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="26dp"
         android:text="阅读" />
-
-    </RelativeLayout>
-
-=======
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/main_background"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.hitnews.ui.MainActivity" >
+    <EditText 
+        android:id="@+id/mykey"  
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"  
+    	android:hint="请输入关键字"
+        />
 
     <Button
-        android:id="@+id/begin_button"
-        android:layout_width="fill_parent"
+        android:id="@+id/key_sure"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="26dp"
-        android:text="阅读" />
+        android:layout_alignBaseline="@+id/mykey"
+        android:layout_alignBottom="@+id/mykey"
+        android:layout_alignRight="@+id/mykey"
+        android:layout_marginRight="60dp"
+        android:text="确定" />
 
     </RelativeLayout>
 
->>>>>>> 9a21edb220d946db15c24462785be75aefa98833

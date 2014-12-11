@@ -1,8 +1,7 @@
-<<<<<<< HEAD
 package com.example.hitnews.ui;
 import com.example.hitnews.pagedeal.Pagedownload;
 import com.example.hitnews.R;
-
+import com.example.hitnews.ui.MainActivity;
 import android.widget.AdapterView.OnItemClickListener;
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -24,7 +23,7 @@ import org.jsoup.select.Elements;
 
 
 
-
+import android.widget.EditText;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,83 +34,104 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.AdapterView.OnItemClickListener;
-
+import com.example.hitnews.user.web_from;
 public class begin extends Activity implements OnItemClickListener {
 
-	Document doc;
+	
+	Document doc,doc1;
 	public List<Map<String, String>> list = new ArrayList<Map<String, String>>();
-	public String key = "学院新闻" ; 
-
+	public String key ; 
+	public String t;
+	public String web;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.begin);
-
-		//findViewById(R.id.button1).setOnClickListener(new OnClickListener() {
-			//@Override
-			//public void onClick(View v) {
-				load();
-			//}
-		//});
+		 web = web_choose.getweb();
+		 key = key_choose.getkey();
+		 Log.e("a",key);
+		 Log.e("a", web);
+		 
+		
+		//load();
 	}
-
-	protected void load() {
+	
+	protected void load() 
+	{
+		
 		try {
-			doc = Jsoup.connect("http://cs.hit.edu.cn").get();
-		} catch (MalformedURLException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		
-		
-		ListView listView = (ListView) findViewById(R.id.listView1);
-		int flag = 0;
-		if(doc == null)
-			Log.e("aaa", "bbb");
-		Elements es = doc.getElementsByClass("node-article");
-		
-		for (Element e : es) {
-			Elements e_key = e.getElementsByClass("field-name-field-news-fenlei");
-			for(Element ee : e_key)
-			{
-				if(ee.getElementsByTag("a").text().equals(key))
-				flag = 1;
+				
+				doc  =  Jsoup.parse(new URL("http://www.youdao.com/search?q="+ java.net.URLEncoder.encode(key) + "+site%3Atoday.hit.edu.cn"), 5000);
+			
+			
+			} catch (MalformedURLException e1) {
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			}
-			if(flag == 1)
+			
+			
+			ListView listView = (ListView) findViewById(R.id.listView1);
+	
+				
+			Elements es = doc.getElementsByClass("res-list");
+			
+			
+			for (Element e : es) 
 			{
 				Map<String, String> map = new HashMap<String, String>();
-				Elements e_title = e.getElementsByClass("title-and-meta");
+				//	Elements e_title = e.getElementsByClass("title-and-meta");
+				map.put("title", e.getElementsByTag("a").text());
 				
-				for(Element ee : e_title)
+				String tt =	e.getElementsByTag("a").attr("href").toString();
+				try
 				{
-					map.put("title", ee.getElementsByTag("a").text());
+					
+				doc1 = Jsoup.connect(tt).get();
+				} catch (MalformedURLException e1) {
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					e1.printStackTrace();
 				}
-				for(Element ee : e_key)
+				if(doc1 != null)
 				{
-					map.put("key", ee.getElementsByTag("a").text());
+					//Elements eees =doc1.getElementById("date");
+					//map.put("inf", eees.text());
+					Elements ees = doc1.getElementsByClass("articletext");
+					map.put("text",ees.text()) ;
+					
 				}
-				map.put("href", "http://cs.hit.edu.cn"
-						+ e.getElementsByTag("a").attr("href"));
-				map.put("text", e.getElementsByTag("p").text());
-				
+					/*
+					map.put("href", "http://cs.hit.edu.cn"
+							+ e.getElementsByTag("a").attr("href"));
+					map.put("text", e.getElementsByTag("p").text());
+					
+					
+					//flag = 0;
+					 * *
+					 */
 				list.add(map);
-				flag = 0;
+				
 			}
+			
+		
+			listView.setOnItemClickListener(this);
+			listView.setAdapter(new SimpleAdapter(this, list, android.R.layout.simple_list_item_2,
+					new String[] { "title","inf" }, new int[] {
+					android.R.id.text1,android.R.id.text2
+			}));
+			
 		}
+	
 		
+
 		
-		listView.setOnItemClickListener(this);
-		listView.setAdapter(new SimpleAdapter(this, list, android.R.layout.simple_list_item_2,
-				new String[] { "title","href" }, new int[] {
-				android.R.id.text1,android.R.id.text2
-		}));
-		
+	
 		
 		
 		
 		
-	}
+	
 	
 
 
@@ -154,41 +174,3 @@ public class begin extends Activity implements OnItemClickListener {
 	
 	
 }
-=======
-package com.example.hitnews.ui;
-import com.example.hitnews.pagedeal.Pagedownload;
-import com.example.hitnews.R;
-
-import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.view.View;
-import android.view.Window;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.view.LayoutInflater;
-
-public class begin extends ActionBarActivity
-{
-	private TextView news;
-		@Override
-	protected void onCreate(Bundle savedInstanceState) 
-	{
-		super.onCreate(savedInstanceState);
-		//String s=Pagedownload.getHtmlData("http://www.baidu.com", "GB2312");
-		setContentView(R.layout.begin);
-	//	new Thread(connectRunnable).start();
-		news =(TextView) findViewById(R.id.news_show);
-		news.setText("敬请期待");
-		
-	}
-/*
-	Runnable connectRunnable = new Runnable() 
-	{
-		public void run() 
-		{ 
-			String s=Pagedownload.getHtmlData("http://www.baidu.com", "GB2312");
-		}
-	};
-	*/
-}
->>>>>>> 9a21edb220d946db15c24462785be75aefa98833
