@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"  
+    android:orientation="vertical"  
+    android:layout_width="fill_parent"  
+    android:layout_height="fill_parent"  
+    >  
+<CheckBox android:id="@+id/web_jwc"  
+ android:text="教务处"    
+    android:layout_width="wrap_content"   
+    android:layout_height="wrap_content"   
+    />  
+<CheckBox android:id="@+id/web_cs"  
+ android:text="计算机学院"    
+    android:layout_width="wrap_content"   
+    android:layout_height="wrap_content"   
+    android:textStyle="bold"  
+    />      
+<CheckBox android:id="@+id/web_today"  
+ android:text="今日哈工大"  
+    android:layout_width="wrap_content"   
+    android:layout_height="wrap_content"   
+    android:typeface="serif"  
+    />      
+<CheckBox android:id="@+id/web_math"  
+ android:text="数学系"  
+    android:layout_width="wrap_content"   
+    android:layout_height="wrap_content"   
+    android:textStyle="italic"  
+    />
+
+<Button
+    android:id="@+id/web_sure"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="确定" />
+      
+</LinearLayout>  
