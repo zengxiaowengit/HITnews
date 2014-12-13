@@ -5,32 +5,32 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Map;
+
+import android.util.Log;
 public class TestComparator implements Comparator<Map<String, String>> {
 	@Override
 	public int compare(Map<String, String> o1, Map<String, String> o2) {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date d1 = null;
-		Date d2 = null;
+		//SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		//Date d1 = null;
+		//Date d2 = null;
+		String d1 = "2015";
+		String d2 = "2015";
 		for (String k : o1.keySet()) {
-			try {
-				d1 = format.parse(o1.get(k));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			
+				if(k.equals("time"))	
+				{
+					//Log.e("aa", k);
+					d1 = o1.get(k);
+					//Log.e("aa", d1);
+				}
+			 
 		}
 		for (String k : o2.keySet()) {
-			try {
-				d2 = format.parse(o2.get(k));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			
+				if(k.equals("time"))
+					d2 = o2.get(k);
+			
 		}
-		if (d1.before(d2)) {
-			return 1;
-		} else if (d1.after(d2)) {
-			return -1;
-		} else {
-			return 0;
-		}
+		return d2.compareTo(d1);
 	}
 }

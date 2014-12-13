@@ -1,5 +1,6 @@
 package com.example.hitnews.ui;
 
+import com.example.hitnews.logic.TestComparator;
 import com.example.hitnews.R;
 import com.example.hitnews.ui.MainActivity;
 import android.widget.AdapterView.OnItemClickListener;
@@ -43,6 +44,7 @@ public class begin extends Activity implements OnItemClickListener {
 	public String key ; 
 	public String t;
 	public String web;
+	char web_inf[];
 	key_and_web mykeyandweb = new key_and_web();
 	//String tmp[];
 	ListView listView;
@@ -52,10 +54,10 @@ public class begin extends Activity implements OnItemClickListener {
 		setContentView(R.layout.begin);
 		 web = web_choose.getweb();
 		 key = key_choose.getkey();
-		Log.e("a",key);
+		Log.e("a",web);
 		// Log.e("a", "111");
 		 mykeyandweb.tmp = key.split(" ");
-		 char web_inf[] = web.toCharArray();
+		 web_inf = web.toCharArray();
 		
 		listView = (ListView) findViewById(R.id.listView1);
 		load();
@@ -69,47 +71,47 @@ public class begin extends Activity implements OnItemClickListener {
 		{
 			for(int j = 0; j <= 9 ;j++)
 			{
+				if(web_inf[j] == '0') continue;
 		
 				try {
 					if(j==0 || j==3 || j==4 || j==5 || j==7 || j==8 || j==9 || j==2)
 						doc  =  Jsoup.connect("http://www.baidu.com/s?q1="+java.net.URLEncoder.encode(mykeyandweb.tmp[i])+"&q2=&q3=&q4=&rn=100&lm=7&ct=0&ft=&q5=1&q6="+mykeyandweb.web_site[j]+"&tn=baiduadv").get();
-					else if(j == 1 )
+					else if(j == 1 || j == 6)
 						doc = Jsoup.connect("http://www.youdao.com/search?q="+java.net.URLEncoder.encode(mykeyandweb.tmp[i])+"+site%3A"+mykeyandweb.web_site[j]+"&ue=utf8&keyfrom=web.index").get();
-					else if(j == 6)
-						doc  =  Jsoup.connect("http://www.baidu.com/s?q1="+java.net.URLEncoder.encode(mykeyandweb.tmp[i])+"&q2=&q3=&q4=&rn=100&lm=7&ct=0&ft=&q5=&q6="+mykeyandweb.web_site[j]+"&tn=baiduadv").get();
-					Log.e("dd", "dd");
+					//else if(j == 6)
+					//	doc  =  Jsoup.connect("http://www.baidu.com/s?q1="+java.net.URLEncoder.encode(mykeyandweb.tmp[i])+"&q2=&q3=&q4=&rn=100&lm=7&ct=0&ft=&q5=&q6="+mykeyandweb.web_site[j]+"&tn=baiduadv").get();
+					//Log.e("dd", "dd");
 					} catch (MalformedURLException e1) {
 						e1.printStackTrace();
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}	
 				Elements es;
-				   if(j != 1 )
+				   if(j != 1 && j != 6)
 					 es = doc.getElementsByClass("result");
 				   else 
 					 es = doc.getElementsByClass("res-list");
-				//	if(es == null)
-					//	Log.e("aa", "mm");
-					Log.e("a", doc.text());
-					
 					for (Element e : es) 
 					{
 						Map<String, String> map = new HashMap<String, String>();
-						map.put("title", e.getElementsByTag("a").text());
-						if(j != 1)
+						map.put("title", e.getElementsByTag("h3").text());
+						if(j != 1 && j != 6)
 						{
 							String tmptime = e.getElementsByClass("g").text().toString();
-							int end =tmptime.length()-2;
-							int begin =end-9;
+							int end =tmptime.length()-1;
+							int begin =end-10;
 							String mytime = tmptime.substring(begin,end);
+							//Log.e("aa", mytime);
+							mytime = mytime.substring(mytime.indexOf("2"));
+							mytime=mytime.trim();
 							map.put("inf",mykeyandweb.web_from[j]+"       "+mytime);
 							map.put("time", mytime);
 						}
 						else 
 						{
 							String tmptime = e.getElementsByTag("cite").text().toString();
-							int end =tmptime.length()-1;
-							int begin =end-9;
+							int end =tmptime.length();
+							int begin =end-10;
 							String mytime = tmptime.substring(begin,end);
 							map.put("inf",mykeyandweb.web_from[j]+"       "+mytime);
 							map.put("time", mytime);
@@ -150,8 +152,9 @@ public class begin extends Activity implements OnItemClickListener {
 						
 						
 					}
-					Collections.sort(list, new com.example.hitnews.logic.TestComparator());
-				
+					
+					Collections.sort(list, new TestComparator());
+					//Collections.sort(list);
 					listView.setOnItemClickListener(this);
 					listView.setAdapter(new SimpleAdapter(this, list, android.R.layout.simple_list_item_2,
 							new String[] { "title","inf" }, new int[] {
