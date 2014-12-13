@@ -48,13 +48,16 @@ public class key_choose extends Activity implements OnClickListener
 			
 				break;
 			case R.id.new_key:
-				mykeyshowstring += mynewkey.getText().toString();
+				if(mykeynum == 0)
+					mykeyshowstring += mynewkey.getText().toString();
+				else 
+				
+					mykeyshowstring = mykeyshowstring + " " + mynewkey.getText().toString();
 				
 			//Log.e("aa", mykey);
-				if(mykeynum == 0)
+				
 					mykeyshow.setText(mykeyshowstringbegin+mykeyshowstring);
-				else 
-					mykeyshow.setText(mykeyshowstringbegin+" "+mykeyshowstring);
+				
 				mykeynum++;
 				break;
 			case R.id.delete_key:
