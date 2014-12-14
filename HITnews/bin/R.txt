@@ -489,8 +489,8 @@ int id web_cs 0x7f090075
 int id web_food 0x7f09007b
 int id web_jwc 0x7f090076
 int id web_jzxy 0x7f09007d
-int id web_life 0x7f09007a
-int id web_math 0x7f090079
+int id web_life 0x7f090079
+int id web_math 0x7f09007a
 int id web_software 0x7f09007c
 int id web_sure 0x7f09007e
 int id web_today 0x7f090074

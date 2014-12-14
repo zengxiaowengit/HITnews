@@ -39,7 +39,7 @@ import com.example.hitnews.user.key_and_web;
 public class begin extends Activity implements OnItemClickListener {
 
 	
-	Document doc,doc1;
+	Document doc;
 	public List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 	public String key ; 
 	public String t;
@@ -74,12 +74,14 @@ public class begin extends Activity implements OnItemClickListener {
 				if(web_inf[j] == '0') continue;
 		
 				try {
-					if(j==0 || j==3 || j==4 || j==5 || j==7 || j==8 || j==9 || j==2)
+					if(j==0 || j==3 || j==4 || j==5 || j==7 || j==8 || j==9 || j==2 || j==6 )
 						doc  =  Jsoup.connect("http://www.baidu.com/s?q1="+java.net.URLEncoder.encode(mykeyandweb.tmp[i])+"&q2=&q3=&q4=&rn=100&lm=7&ct=0&ft=&q5=1&q6="+mykeyandweb.web_site[j]+"&tn=baiduadv").get();
-					else if(j == 1 || j == 6)
+					
+					else if(j == 1)
 						doc = Jsoup.connect("http://www.youdao.com/search?q="+java.net.URLEncoder.encode(mykeyandweb.tmp[i])+"+site%3A"+mykeyandweb.web_site[j]+"&ue=utf8&keyfrom=web.index").get();
+					//Log.e("ww", "vvv");
 					//else if(j == 6)
-					//	doc  =  Jsoup.connect("http://www.baidu.com/s?q1="+java.net.URLEncoder.encode(mykeyandweb.tmp[i])+"&q2=&q3=&q4=&rn=100&lm=7&ct=0&ft=&q5=&q6="+mykeyandweb.web_site[j]+"&tn=baiduadv").get();
+						//doc  =  Jsoup.connect("http://www.baidu.com/s?q1="+java.net.URLEncoder.encode(mykeyandweb.tmp[i])+"&q2=&q3=&q4=&rn=100&lm=7&ct=0&ft=&q5=&q6="+mykeyandweb.web_site[j]+"&tn=baiduadv").get();
 					//Log.e("dd", "dd");
 					} catch (MalformedURLException e1) {
 						e1.printStackTrace();
@@ -87,7 +89,7 @@ public class begin extends Activity implements OnItemClickListener {
 						e1.printStackTrace();
 					}	
 				Elements es;
-				   if(j != 1 && j != 6)
+				   if(j != 1)
 					 es = doc.getElementsByClass("result");
 				   else 
 					 es = doc.getElementsByClass("res-list");
@@ -95,7 +97,7 @@ public class begin extends Activity implements OnItemClickListener {
 					{
 						Map<String, String> map = new HashMap<String, String>();
 						map.put("title", e.getElementsByTag("h3").text());
-						if(j != 1 && j != 6)
+						if(j != 1)
 						{
 							String tmptime = e.getElementsByClass("g").text().toString();
 							int end =tmptime.length()-1;
@@ -119,25 +121,10 @@ public class begin extends Activity implements OnItemClickListener {
 						
 							//map.put("time",e.getElementsByTag("cite").text()+"w");
 						//map.put("inf", mykeyandweb.web_from[j]);
-						/*
+						
 						String tt =	e.getElementsByTag("a").attr("href").toString();
-						try
-						{							
-							doc1 = Jsoup.connect(tt).get();
-						} catch (MalformedURLException e1) {
-							e1.printStackTrace();
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}
-						/*
-						if(doc1 != null)
-						{
-							//Elements eees =doc1.getElementById("date");
-							//map.put("inf", eees.text());
-							Elements ees = doc1.getElementsByClass("articletext");
-							map.put("text",ees.text()) ;
-							
-						}*/
+						map.put("href", tt);
+						map.put("web_from", Integer.toString(j));
 						
 							/*
 							map.put("href", "http://cs.hit.edu.cn"
@@ -205,13 +192,64 @@ public class begin extends Activity implements OnItemClickListener {
 	
 	public void onItemClick(AdapterView parent, View v, int position, long id)
 	{
-		
-		TextView mytextview;
+		Document doc1 = null;
+		String web_from = null;
+		TextView mytextview = null;
 		setContentView(R.layout.news_show);
+		try
+		{			
+			
+			//Log.e("ww", "www");
+			//Log.e("aa", list.get(position).get("href"));
+			doc1 = Jsoup.connect(list.get(position).get("href")).get();
+			 web_from = list.get(position).get("web_from");
+			 Log.e("aa", web_from);
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		if(doc1 != null)
+		{
+			Log.e("aa", doc1.text());//Elements eees =doc1.getElementById("date");
+			//map.put("inf", eees.text());
+			int j = Integer.parseInt(web_from);
+			Elements ees = null;
+			Element eees = null;
+			if(j == 0)
+			{
+				
+				ees = doc1.getElementsByClass("articletext");
+				Log.e("aa", ees.text());
+	
+			}
+			else if(j == 1)
+				ees = doc1.getElementsByClass("field-name-body");
+			else if(j == 2)
+				ees = doc1.getElementsByClass("font1");
+			else if(j == 3 || j == 5 || j == 7 || j == 9)
+				ees = doc1.getElementsByClass("font1");
+			else if(j == 4)
+			{
+				Log.e("aa", "bbb");
+				eees = doc1.getElementById("text");
+				Log.e("ww", eees.text());
+			}
+			else if(j == 6)
+				ees = doc1.getElementsByClass("12");
+			else if(j == 8)
+				ees = doc1.getElementsByClass("page_content");
+			Log.e("mmm", "mmm");
 		mytextview = (TextView) this.findViewById(R.id.news_show);
-		mytextview.setText(list.get(position).get("text")+list.get(position).get("key"));
+		if(j != 4)
+			mytextview.setText(ees.text());
+		else 
+			mytextview.setText(eees.text());
+		
 		
 			
+	}
 	}
 	
 	

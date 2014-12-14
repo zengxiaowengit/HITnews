@@ -1791,8 +1791,8 @@ containing a value of this type.
         public static final int web_food=0x7f09007b;
         public static final int web_jwc=0x7f090076;
         public static final int web_jzxy=0x7f09007d;
-        public static final int web_life=0x7f09007a;
-        public static final int web_math=0x7f090079;
+        public static final int web_life=0x7f090079;
+        public static final int web_math=0x7f09007a;
         public static final int web_software=0x7f09007c;
         public static final int web_sure=0x7f09007e;
         public static final int web_today=0x7f090074;
