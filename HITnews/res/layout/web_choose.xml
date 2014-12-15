@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+	<CheckBoxPreference
+	    android:key="jwc"
+	    android:title="@string/jwc_title"
+	    android:summary="@string/jwc_summary"
+	    android:defaultValue="true" />
+	<CheckBoxPreference
+	    android:key="today_HIT"
+	    android:title="@string/today_HIT_title"
+	    android:summary="@string/today_HIT_summary"
+	    android:defaultValue="true" />
+	<CheckBoxPreference
+	    android:key="cs"
+	    android:title="@string/cs_title"
+	    android:summary="@string/cs_summary"
+	    android:defaultValue="true" />
+	</PreferenceScreen>
