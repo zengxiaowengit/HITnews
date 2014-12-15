@@ -27,6 +27,7 @@ import java.util.Collections;
 import android.widget.EditText;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -42,6 +43,7 @@ public class begin extends Activity implements OnItemClickListener {
 	Document doc;
 	public List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 	public String key ; 
+	public static List<Map<String,String>> mylist;
 	public String t;
 	public String web;
 	char web_inf[];
@@ -63,26 +65,23 @@ public class begin extends Activity implements OnItemClickListener {
 		load();
 	}
 	
-	protected void load() 
+	public  void load() 
 	{
+		com.example.hitnews.ui.MainActivity.read = 1;
 		Log.e("a","mykeyandweb.tmp.length");
 		//Log.e("a", "http://www.baidu.com/s?q1="+ java.net.URLEncoder.encode(mykeyandweb.tmp[i]) + "&rn=100&lm=7&q5=1&q6="+mykeyandweb.web_site[0]);
 		for(int i = 0; i < mykeyandweb.tmp.length; i++)
 		{
+			//Log.e("aaa",mykeyandweb.tmp[i] );
 			for(int j = 0; j <= 9 ;j++)
 			{
 				if(web_inf[j] == '0') continue;
 		
 				try {
 					if(j==0 || j==3 || j==4 || j==5 || j==7 || j==8 || j==9 || j==2 || j==6 )
-						doc  =  Jsoup.connect("http://www.baidu.com/s?q1="+java.net.URLEncoder.encode(mykeyandweb.tmp[i])+"&q2=&q3=&q4=&rn=100&lm=7&ct=0&ft=&q5=1&q6="+mykeyandweb.web_site[j]+"&tn=baiduadv").get();
-					
+						doc  =  Jsoup.connect("http://www.baidu.com/s?q1="+mykeyandweb.tmp[i]+"&q2=&q3=&q4=&rn=100&lm=7&ct=0&ft=&q5=1&q6="+mykeyandweb.web_site[j]+"&tn=baiduadv").get();		
 					else if(j == 1)
 						doc = Jsoup.connect("http://www.youdao.com/search?q="+java.net.URLEncoder.encode(mykeyandweb.tmp[i])+"+site%3A"+mykeyandweb.web_site[j]+"&ue=utf8&keyfrom=web.index").get();
-					//Log.e("ww", "vvv");
-					//else if(j == 6)
-						//doc  =  Jsoup.connect("http://www.baidu.com/s?q1="+java.net.URLEncoder.encode(mykeyandweb.tmp[i])+"&q2=&q3=&q4=&rn=100&lm=7&ct=0&ft=&q5=&q6="+mykeyandweb.web_site[j]+"&tn=baiduadv").get();
-					//Log.e("dd", "dd");
 					} catch (MalformedURLException e1) {
 						e1.printStackTrace();
 					} catch (IOException e1) {
@@ -118,29 +117,15 @@ public class begin extends Activity implements OnItemClickListener {
 							map.put("inf",mykeyandweb.web_from[j]+"       "+mytime);
 							map.put("time", mytime);
 						}
-						
-							//map.put("time",e.getElementsByTag("cite").text()+"w");
-						//map.put("inf", mykeyandweb.web_from[j]);
-						
 						String tt =	e.getElementsByTag("a").attr("href").toString();
 						map.put("href", tt);
 						map.put("web_from", Integer.toString(j));
-						
-							/*
-							map.put("href", "http://cs.hit.edu.cn"
-									+ e.getElementsByTag("a").attr("href"));
-							map.put("text", e.getElementsByTag("p").text());
-							
-							
-							//flag = 0;
-							 * *
-							 */
 						list.add(map);
 						
 						
 					}
 					
-					Collections.sort(list, new TestComparator());
+					
 					//Collections.sort(list);
 					listView.setOnItemClickListener(this);
 					listView.setAdapter(new SimpleAdapter(this, list, android.R.layout.simple_list_item_2,
@@ -149,7 +134,8 @@ public class begin extends Activity implements OnItemClickListener {
 					}));
 					}
 				}
-					
+		Collections.sort(list, new TestComparator());
+		mylist = list;
 				}
 			
 				
@@ -252,5 +238,8 @@ public class begin extends Activity implements OnItemClickListener {
 	}
 	}
 	
-	
+	public static  List<Map<String,String>> getmylist()
+	{
+		return mylist;
+	}
 }
