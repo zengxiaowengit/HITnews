@@ -12,16 +12,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+import android.content.SharedPreferences;
 public class key_choose extends Activity implements OnClickListener
 {
 	String mykeyshowstringbegin = "现在定制的关键词是：";
-	static String mykeyshowstring = ""; 
+	public static String mykeyshowstring = ""; 
 	Button new_key;
 	Button delete_key;
 	Button finish_key;
 	TextView mykeyshow;
 	EditText mynewkey;
-	int mykeynum = 0;
+	static int mykeynum = 0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,7 +36,9 @@ public class key_choose extends Activity implements OnClickListener
 		new_key.setOnClickListener(this);
 		delete_key.setOnClickListener(this);
 		finish_key.setOnClickListener(this);
-		
+		SharedPreferences settings = getSharedPreferences("SETTING_Infos",0);
+		mykeynum = settings.getInt("num", 0);
+		mykeyshow.setText(mykeyshowstringbegin+mykeyshowstring);
 	}
 	public void onClick(View v)
 	{
@@ -43,7 +46,9 @@ public class key_choose extends Activity implements OnClickListener
 		{
 			
 			case R.id.finish_key:
-			
+				SharedPreferences settings = getSharedPreferences("SETTING_Infos",0);
+				settings.edit().putString("key", mykeyshowstring).commit();
+				settings.edit().putInt("num",mykeynum).commit();
 				finish();
 			
 				break;

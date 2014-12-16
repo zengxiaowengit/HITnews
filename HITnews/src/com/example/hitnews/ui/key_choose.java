@@ -22,7 +22,11 @@ public class key_choose extends Activity implements OnClickListener
 	Button finish_key;
 	TextView mykeyshow;
 	EditText mynewkey;
+<<<<<<< HEAD
+	static int mykeynum = 0;
+=======
 	int mykeynum = 0;
+>>>>>>> 74520f853ded7e148cbf1916e9c7658dc6f8c4f7
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,7 +41,11 @@ public class key_choose extends Activity implements OnClickListener
 		delete_key.setOnClickListener(this);
 		finish_key.setOnClickListener(this);
 		SharedPreferences settings = getSharedPreferences("SETTING_Infos",0);
+<<<<<<< HEAD
+		mykeynum = settings.getInt("num", 0);
+=======
 		mykeyshowstring = settings.getString("key", "");
+>>>>>>> 74520f853ded7e148cbf1916e9c7658dc6f8c4f7
 		mykeyshow.setText(mykeyshowstringbegin+mykeyshowstring);
 	}
 	public void onClick(View v)
@@ -48,6 +56,10 @@ public class key_choose extends Activity implements OnClickListener
 			case R.id.finish_key:
 				SharedPreferences settings = getSharedPreferences("SETTING_Infos",0);
 				settings.edit().putString("key", mykeyshowstring).commit();
+<<<<<<< HEAD
+				settings.edit().putInt("num",mykeynum).commit();
+=======
+>>>>>>> 74520f853ded7e148cbf1916e9c7658dc6f8c4f7
 				finish();
 			
 				break;

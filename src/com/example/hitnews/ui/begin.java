@@ -27,6 +27,7 @@ import java.util.Collections;
 import android.widget.EditText;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,58 +35,96 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Adapter;
 import android.widget.AdapterView.OnItemClickListener;
 import com.example.hitnews.user.key_and_web;
 public class begin extends Activity implements OnItemClickListener {
 
 	
-	Document doc,doc1;
-	public List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+	Document doc;
+	public static List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 	public String key ; 
+	public static List<Map<String,String>> mylist;
 	public String t;
 	public String web;
+	char web_inf[];
 	key_and_web mykeyandweb = new key_and_web();
 	//String tmp[];
-	ListView listView;
+	public static ListView listView;
+	static String mynews = "";
+	 SimpleAdapter adapter ,adapter1;
 	@Override
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.begin);
+		adapter  = new SimpleAdapter(this, list, android.R.layout.simple_list_item_2,
+				new String[] { "title","inf" }, new int[] {
+				android.R.id.text1,android.R.id.text2});
+		/*
+		adapter1 = new SimpleAdapter(this, list, android.R.layout.simple_list_item_2,
+				new String[] { "title","inf" }, new int[] {
+				android.R.id.text1,android.R.id.text2});
+				*/
 		 web = web_choose.getweb();
 		 key = key_choose.getkey();
-		Log.e("a",key);
-		// Log.e("a", "111");
+		 Log.e("aa", web);
+		 Log.e("aaa", key);
 		 mykeyandweb.tmp = key.split(" ");
-		 char web_inf[] = web.toCharArray();
-		
+		 web_inf = web.toCharArray();
 		listView = (ListView) findViewById(R.id.listView1);
 		load();
+		listView.setOnItemClickListener(this);
+		 listView.setAdapter(adapter);
+				Collections.sort(list, new TestComparator());
+					mylist = list;
 	}
+	@Override
 	
-	protected void load() 
+	protected void onRestart() {
+        super.onRestart();
+        Log.e("aaa", "start onRestart~~~");
+        String k = Integer.toString(list.size());
+        /*
+        for(int i = 0 ; i<list.size() ;i++)
+        {
+        	String title = list.get(i).get("title");
+        	String inf = list.get(i).get("inf");
+        	Log.e(title, inf);
+        }
+        */
+        setContentView(R.layout.begin);
+        listView = (ListView) findViewById(R.id.listView1);
+        listView.setOnItemClickListener(this);
+        listView.setAdapter(adapter);
+      // listView.showContextMenu();
+       
+	
+    }
+	public  void load() 
 	{
-		Log.e("a","mykeyandweb.tmp.length");
+		com.example.hitnews.ui.MainActivity.read = 1;
+		//Log.e("a","mykeyandweb.tmp.length");
 		//Log.e("a", "http://www.baidu.com/s?q1="+ java.net.URLEncoder.encode(mykeyandweb.tmp[i]) + "&rn=100&lm=7&q5=1&q6="+mykeyandweb.web_site[0]);
 		for(int i = 0; i < mykeyandweb.tmp.length; i++)
 		{
+			//Log.e("aaa",mykeyandweb.tmp[i] );
 			for(int j = 0; j <= 9 ;j++)
 			{
+				if(web_inf[j] == '0') continue;
 		
 				try {
-					if(j==0 || j==3 || j==4 || j==5 || j==7 || j==8 || j==9 || j==2)
-						doc  =  Jsoup.connect("http://www.baidu.com/s?q1="+java.net.URLEncoder.encode(mykeyandweb.tmp[i])+"&q2=&q3=&q4=&rn=100&lm=7&ct=0&ft=&q5=1&q6="+mykeyandweb.web_site[j]+"&tn=baiduadv").get();
-					else if(j == 1 || j == 6)
+					if(j==0 || j==3 || j==4 || j==5 || j==7 || j==8 || j==9 || j==2 || j==6 )
+						doc  =  Jsoup.connect("http://www.baidu.com/s?q1="+mykeyandweb.tmp[i]+"&q2=&q3=&q4=&rn=100&lm=7&ct=0&ft=&q5=1&q6="+mykeyandweb.web_site[j]+"&tn=baiduadv").get();		
+					else if(j == 1)
 						doc = Jsoup.connect("http://www.youdao.com/search?q="+java.net.URLEncoder.encode(mykeyandweb.tmp[i])+"+site%3A"+mykeyandweb.web_site[j]+"&ue=utf8&keyfrom=web.index").get();
-					//else if(j == 6)
-					//	doc  =  Jsoup.connect("http://www.baidu.com/s?q1="+java.net.URLEncoder.encode(mykeyandweb.tmp[i])+"&q2=&q3=&q4=&rn=100&lm=7&ct=0&ft=&q5=&q6="+mykeyandweb.web_site[j]+"&tn=baiduadv").get();
-					//Log.e("dd", "dd");
 					} catch (MalformedURLException e1) {
 						e1.printStackTrace();
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}	
 				Elements es;
-				   if(j != 1 && j != 6)
+				   if(j != 1)
 					 es = doc.getElementsByClass("result");
 				   else 
 					 es = doc.getElementsByClass("res-list");
@@ -93,7 +132,7 @@ public class begin extends Activity implements OnItemClickListener {
 					{
 						Map<String, String> map = new HashMap<String, String>();
 						map.put("title", e.getElementsByTag("h3").text());
-						if(j != 1 && j != 6)
+						if(j != 1)
 						{
 							String tmptime = e.getElementsByClass("g").text().toString();
 							int end =tmptime.length()-1;
@@ -114,54 +153,16 @@ public class begin extends Activity implements OnItemClickListener {
 							map.put("inf",mykeyandweb.web_from[j]+"       "+mytime);
 							map.put("time", mytime);
 						}
-						
-							//map.put("time",e.getElementsByTag("cite").text()+"w");
-						//map.put("inf", mykeyandweb.web_from[j]);
-						/*
 						String tt =	e.getElementsByTag("a").attr("href").toString();
-						try
-						{							
-							doc1 = Jsoup.connect(tt).get();
-						} catch (MalformedURLException e1) {
-							e1.printStackTrace();
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}
-						/*
-						if(doc1 != null)
-						{
-							//Elements eees =doc1.getElementById("date");
-							//map.put("inf", eees.text());
-							Elements ees = doc1.getElementsByClass("articletext");
-							map.put("text",ees.text()) ;
-							
-						}*/
-						
-							/*
-							map.put("href", "http://cs.hit.edu.cn"
-									+ e.getElementsByTag("a").attr("href"));
-							map.put("text", e.getElementsByTag("p").text());
-							
-							
-							//flag = 0;
-							 * *
-							 */
+						map.put("href", tt);
+						map.put("web_from", Integer.toString(j));
 						list.add(map);
 						
 						
 					}
-					
-					Collections.sort(list, new TestComparator());
-					//Collections.sort(list);
-					listView.setOnItemClickListener(this);
-					listView.setAdapter(new SimpleAdapter(this, list, android.R.layout.simple_list_item_2,
-							new String[] { "title","inf" }, new int[] {
-							android.R.id.text1,android.R.id.text2
-					}));
-					}
-				}
-					
-				}
+			}
+		}				
+	}
 			
 				
 	
@@ -203,14 +204,74 @@ public class begin extends Activity implements OnItemClickListener {
 	
 	public void onItemClick(AdapterView parent, View v, int position, long id)
 	{
-		
-		TextView mytextview;
+		Document doc1 = null;
+		String web_from = null;
+		TextView mytextview = null;
 		setContentView(R.layout.news_show);
-		mytextview = (TextView) this.findViewById(R.id.news_show);
-		mytextview.setText(list.get(position).get("text")+list.get(position).get("key"));
+		try
+		{			
+			
+			
+			doc1 = Jsoup.connect(list.get(position).get("href")).get();
+			 web_from = list.get(position).get("web_from");
+			
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		if(doc1 != null)
+		{
+			
+			
+			int j = Integer.parseInt(web_from);
+			Elements ees = null;
+			Element eees = null;
+			if(j == 0)
+			{
+				
+				ees = doc1.getElementsByClass("articletext");
+				Log.e("aa", ees.text());
+	
+			}
+			else if(j == 1)
+				ees = doc1.getElementsByClass("field-name-body");
+			else if(j == 2)
+				ees = doc1.getElementsByClass("font1");
+			else if(j == 3 || j == 5 || j == 7 || j == 9)
+				ees = doc1.getElementsByClass("font1");
+			else if(j == 4)
+			{
+		
+				eees = doc1.getElementById("text");
+				
+			}
+			else if(j == 6)
+				ees = doc1.getElementsByClass("12");
+			else if(j == 8)
+				ees = doc1.getElementsByClass("page_content");
+		
+			if(j != 4)
+				mynews = ees.text();
+			else
+				mynews = eees.text();
+			Intent i = new Intent(this, news_show.class);
+		
+			startActivity(i);
+			
+		
 		
 			
 	}
+	}
 	
-	
+	public static  List<Map<String,String>> getmylist()
+	{
+		return mylist;
+	}
+	public static String getmynews()
+	{
+		return mynews;
+	}
 }
