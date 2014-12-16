@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+  <CheckBox android:id="@+id/pic"  
+ android:text="图文模式"  
+    android:layout_width="wrap_content"   
+    android:layout_height="wrap_content"   
+    android:typeface="serif"  
+    />      
+ <CheckBox android:id="@+id/text"  
+ android:text="文本"    
+    android:layout_width="wrap_content"   
+    android:layout_height="wrap_content"   
+    android:textStyle="bold"  
+    />     
+    <Button 
+        android:id="@+id/style_sure"
+        android:text="确定"
+        android:layout_width="wrap_content"   
+    android:layout_height="wrap_content"  
+        /> 
+
+</LinearLayout>
