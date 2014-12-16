@@ -45,7 +45,12 @@ public class web_choose extends Activity
 		 web_sure = (Button)findViewById(R.id.web_sure);  
 		 web_sure.setOnClickListener(web_sure_listener);  
 		// web_res = "";
+<<<<<<< HEAD
 		
+=======
+		 SharedPreferences settings = getSharedPreferences("SETTING_Infos",0);
+			web_res=settings.getString("web", "");
+>>>>>>> 74520f853ded7e148cbf1916e9c7658dc6f8c4f7
 			Log.e("www", web_res);
 			char web_web[] = web_res.toCharArray();
 			if(web_res.length() == 10 )
