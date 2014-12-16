@@ -44,6 +44,9 @@
         <activity
             android:name=".ui.feedback"
             ></activity>
+        <activity
+            android:name=".ui.news_show"
+            ></activity>
     </application>
 
 </manifest>

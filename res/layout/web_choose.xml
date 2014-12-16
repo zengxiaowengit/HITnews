@@ -4,29 +4,67 @@
     android:layout_width="fill_parent"  
     android:layout_height="fill_parent"  
     >  
-<CheckBox android:id="@+id/web_jwc"  
- android:text="教务处"    
-    android:layout_width="wrap_content"   
-    android:layout_height="wrap_content"   
-    />  
-<CheckBox android:id="@+id/web_cs"  
- android:text="计算机学院"    
-    android:layout_width="wrap_content"   
-    android:layout_height="wrap_content"   
-    android:textStyle="bold"  
-    />      
-<CheckBox android:id="@+id/web_today"  
+ <CheckBox android:id="@+id/web_today"  
  android:text="今日哈工大"  
     android:layout_width="wrap_content"   
     android:layout_height="wrap_content"   
     android:typeface="serif"  
     />      
-<CheckBox android:id="@+id/web_math"  
- android:text="数学系"  
+ <CheckBox android:id="@+id/web_cs"  
+ android:text="计算机学院"    
     android:layout_width="wrap_content"   
     android:layout_height="wrap_content"   
-    android:textStyle="italic"  
-    />
+    android:textStyle="bold"  
+    />      
+<CheckBox android:id="@+id/web_jwc"  
+ android:text="教务处"    
+    android:layout_width="wrap_content"   
+    android:layout_height="wrap_content"   
+    />  
+
+ <CheckBox android:id="@+id/web_chemeng"  
+ android:text="化工学院"    
+    android:layout_width="wrap_content"   
+    android:layout_height="wrap_content"   
+    android:textStyle="bold"  
+    />      
+ <CheckBox android:id="@+id/web_civil"  
+ android:text="土木学院"    
+    android:layout_width="wrap_content"   
+    android:layout_height="wrap_content"   
+    android:textStyle="bold"  
+    />    
+  
+   <CheckBox android:id="@+id/web_life"  
+ android:text="生命学院"    
+    android:layout_width="wrap_content"   
+    android:layout_height="wrap_content"   
+    android:textStyle="bold"  
+    />    
+    <CheckBox android:id="@+id/web_math"  
+ android:text="数学系"    
+    android:layout_width="wrap_content"   
+    android:layout_height="wrap_content"   
+    android:textStyle="bold"  
+    />     
+    <CheckBox android:id="@+id/web_food"  
+ android:text="食品学院"    
+    android:layout_width="wrap_content"   
+    android:layout_height="wrap_content"   
+    android:textStyle="bold"  
+    />      
+    <CheckBox android:id="@+id/web_software"  
+ android:text="软件学院"    
+    android:layout_width="wrap_content"   
+    android:layout_height="wrap_content"   
+    android:textStyle="bold"  
+    />         
+<CheckBox android:id="@+id/web_jzxy"  
+ android:text="建筑学院"    
+    android:layout_width="wrap_content"   
+    android:layout_height="wrap_content"   
+    android:textStyle="bold"  
+    />      
 
 <Button
     android:id="@+id/web_sure"
